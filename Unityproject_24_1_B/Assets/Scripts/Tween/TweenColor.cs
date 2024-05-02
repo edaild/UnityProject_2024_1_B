@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using DG.Tweening;
+public class TweenColor : MonoBehaviour
+{
+    private Renderer renderer;
+
+    void Start()
+    {
+        renderer = GetComponent<Renderer>();    //GetComponent 내 자신 오브젝트에서 컨포넌트(Renderer)를 검색하여 가져온다.
+    }
+
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Color color = new Color(Random.value , Random.value, Random.value); // 랜덤 컬러 설정
+
+            renderer.material.DOColor(color, 1f)                            //렌덤 설정된 컬로로 트위닝
+               .SetEase(Ease.InOutQuad)                                     //옵션 값 설정
+                .SetAutoKill(false)
+                .Pause()
+                .OnComplete(() => Debug.Log("컬러 변환 완료"));               //익명함수에서 로그 활성화 [() =>]
+
+            renderer.material.DOPlay();                                       //설정된 트윈을 실행
+
+
+        }
+    }
+}
